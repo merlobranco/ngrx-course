@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {distinctUntilChanged, map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import { AppState } from './auth/reducers';
+import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -44,13 +45,12 @@ export class AppComponent implements OnInit {
 
       this.isLoggedIn$ = this.store
         .pipe(
-          select(state => !!state["auth"].user), // Cheking if there is an user profile
-          // Duplicate elimination functionality The observable only emits new vaklues if the value has changed since the last time
+          select(isLoggedIn)
         );
 
       this.isLoggedOut$ = this.store
         .pipe(
-          map(state => !state["auth"].user)
+          select(isLoggedOut)
         );
 
       this.store.subscribe(state => console.log('store value: ', state))
@@ -62,3 +62,4 @@ export class AppComponent implements OnInit {
     }
 
 }
+
