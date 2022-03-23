@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
 
       this.isLoggedIn$ = this.store
         .pipe(
-          map(state => !!state["auth"].user), // Cheking if there is an user profile
-          distinctUntilChanged() // Duplicate elimination functionality The observable only emits new vaklues if the value has changed since the last time
+          select(state => !!state["auth"].user), // Cheking if there is an user profile
+          // Duplicate elimination functionality The observable only emits new vaklues if the value has changed since the last time
         );
 
       this.isLoggedOut$ = this.store
