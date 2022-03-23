@@ -12,11 +12,11 @@ import { User } from '../model/user.model';
 
 export const authFeatureKey = 'auth';
 
-export interface AuthState {
+export interface AppState {
   user: User
 }
 
-export const initialAuth: AuthState = {
+export const initialAuth: AppState = {
     user: undefined
 }
 
