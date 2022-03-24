@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { pipe } from "rxjs";
 import { tap } from "rxjs/operators";
@@ -14,7 +15,18 @@ export class AuthEffects {
     ),
     {dispatch: false}); // This is required, because normally a effect triggers a new action but here is not the case
 
-    constructor(private actions$: Actions) {     
+    logout$ = createEffect(() => this.actions$
+    .pipe(
+        ofType(AuthActions.logout),
+        tap(() => { 
+                    localStorage.removeItem('user');
+                    this.router.navigateByUrl('/login');
+                })
+    ),
+    {dispatch: false});
+
+    constructor(private actions$: Actions,
+                private router: Router) {     
     }
 
 }
